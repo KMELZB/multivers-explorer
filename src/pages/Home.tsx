@@ -39,7 +39,7 @@ const Home = () => {
         <button onClick={() => setCurrentUrl(info.next!)} disabled={!info.next}>Suivant</button>
       </div>
 
-      <div>
+      <div className="character-grid">
         {characters.map((char: any) => (
           <CharacterCard key={char.id} char={char} />
         ))}
