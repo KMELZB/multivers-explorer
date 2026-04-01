@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getCharacters } from "../services/Api";
+import CharacterCard from "../components/CharacterCard";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
@@ -25,36 +27,21 @@ const Home = () => {
       });
   }, [currentUrl]);
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <Loader />;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
     <div>
       <h1>Multivers Explorer</h1>
 
       <div>
-        <button 
-          onClick={() => setCurrentUrl(info.prev!)} 
-          disabled={!info.prev}
-        >
-          Précédent
-        </button>
-        <button 
-          onClick={() => setCurrentUrl(info.next!)} 
-          disabled={!info.next}
-        >
-          Suivant
-        </button>
+        <button onClick={() => setCurrentUrl(info.prev!)} disabled={!info.prev}>Précédent</button>
+        <button onClick={() => setCurrentUrl(info.next!)} disabled={!info.next}>Suivant</button>
       </div>
 
       <div>
         {characters.map((char: any) => (
-          <div key={char.id}>
-            <img src={char.image} alt={char.name} width="100" />
-            <h3>{char.name}</h3>
-            <p>{char.species}</p>
-            <Link to={`/character/${char.id}`}>Voir détails</Link>
-          </div>
+          <CharacterCard key={char.id} char={char} />
         ))}
       </div>
     </div>
