@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCharacters } from "../services/Api";
 
-const HomePage = () => {
+const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
  const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const HomePage = () => {
         setInfo(data.info);
         setError(null);
       })
-      .catch((err) => {
+      .catch(() => {
         setError("Erreur de chargement");
       })
       .finally(() => {
@@ -61,4 +61,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
